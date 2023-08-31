@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend  
+    command: sh -c "sleep 30s ; python3 ./penzi.py"
+    ports:
+      - "5000:5000"  
+    depends_on:
+      - mysql
+
+  frontend:
+    build:
+      context: ./frontend  
+    ports:
+      - "3000:3000"  
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: '#Matsukah254'
+      MYSQL_DATABASE: mpenzi
+      # MYSQL_USER: root
+      MYSQL_PASSWORD: '#Matsukah254'
+    ports:
+      - "3306:3306"  
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
